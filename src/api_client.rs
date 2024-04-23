@@ -7,7 +7,7 @@ use self::{
 };
 
 pub mod api_types;
-mod error;
+pub mod error;
 
 pub struct ApiClient {
     inner: reqwest::Client,
@@ -17,6 +17,13 @@ pub struct ApiClient {
 const BASE_URL: &str = "https://api.openai.com/v1";
 
 impl ApiClient {
+    pub fn new(access_token: String) -> Self {
+        Self {
+            inner: reqwest::Client::new(),
+            access_token,
+        }
+    }
+
     async fn post<T, B>(&self, path: &str, body: B) -> Result<T, ApiClientError>
     where
         B: Serialize,
