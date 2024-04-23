@@ -6,8 +6,4 @@ This project is an example showing how to do LLM Tool Calling in Rust.
 
 These must be set when running in production
 
-- `OAI_KEY?`: TODO
-
-## OAI key
-
-TODO: Where to put OAI key.
+- `OPENAI_API_KEY`: Your OpenAI API key.

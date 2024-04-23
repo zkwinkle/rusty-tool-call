@@ -58,7 +58,7 @@ async fn main() {
             .unwrap()
             .content()
             .unwrap()
-            .find("I'm happy")
+            .find("happy")
             .is_some()
         {
             return;
@@ -92,7 +92,16 @@ fn handle_completion(
                 let tool =
                     TOOLS.iter().find(|t| t.name() == tool_call.function.name);
 
-                let result = tool.unwrap().call(
+                let Some(tool) = tool else {
+                    println!(
+                        "WARNING: Tried to inexistent call {} tool",
+                        tool_call.function.name
+                    );
+                    return;
+                };
+
+
+                let result = tool.call(
                     serde_json::from_str(&tool_call.function.arguments)
                         .unwrap(),
                 );
